@@ -1,4 +1,5 @@
-import { Check, CheckCheck, Phone, ChevronLeft, Plus, Camera, Mic, Smile } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { CheckCheck, Phone, ChevronLeft, Plus, Camera, Mic, Smile } from "lucide-react";
 
 interface Message {
   id: number;
@@ -8,7 +9,7 @@ interface Message {
   isRead?: boolean;
 }
 
-const messages: Message[] = [
+const allMessages: Message[] = [
   { id: 1, text: "Oi tudo bem?", time: "14:25", isUser: true, isRead: true },
   { id: 2, text: "Queria fazer um orçamento", time: "14:25", isUser: true, isRead: true },
   { id: 3, text: "Olá! Para seguirmos com seu orçamento, por favor me informe a lista dos produtos ou materiais que deseja cotar (inclua quantidade e descrição de cada item se possível). Assim consigo preparar o orçamento certinho para você.", time: "14:26", isUser: false },
@@ -17,7 +18,60 @@ const messages: Message[] = [
   { id: 6, text: "Perfeito!", time: "14:27", isUser: true, isRead: true },
 ];
 
+const TypingIndicator = () => (
+  <div className="flex justify-start animate-fade-in">
+    <div className="relative max-w-[80%] px-4 py-3 rounded-lg shadow-sm bg-white rounded-tl-none">
+      <div className="flex gap-1">
+        <span className="w-2 h-2 bg-[#667781] rounded-full animate-bounce" style={{ animationDelay: "0ms", animationDuration: "0.6s" }} />
+        <span className="w-2 h-2 bg-[#667781] rounded-full animate-bounce" style={{ animationDelay: "150ms", animationDuration: "0.6s" }} />
+        <span className="w-2 h-2 bg-[#667781] rounded-full animate-bounce" style={{ animationDelay: "300ms", animationDuration: "0.6s" }} />
+      </div>
+    </div>
+  </div>
+);
+
 const WhatsAppChat = () => {
+  const [visibleMessages, setVisibleMessages] = useState<Message[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to bottom when new messages appear
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [visibleMessages, isTyping]);
+
+  useEffect(() => {
+    if (currentIndex >= allMessages.length) return;
+
+    const currentMessage = allMessages[currentIndex];
+    const isAIMessage = !currentMessage.isUser;
+    
+    // Show typing indicator for AI messages
+    if (isAIMessage) {
+      setIsTyping(true);
+      const typingDuration = Math.min(2000, 800 + currentMessage.text.length * 8);
+      
+      const typingTimer = setTimeout(() => {
+        setIsTyping(false);
+        setVisibleMessages(prev => [...prev, currentMessage]);
+        setCurrentIndex(prev => prev + 1);
+      }, typingDuration);
+
+      return () => clearTimeout(typingTimer);
+    } else {
+      // User messages appear with a small delay
+      const messageTimer = setTimeout(() => {
+        setVisibleMessages(prev => [...prev, currentMessage]);
+        setCurrentIndex(prev => prev + 1);
+      }, 600);
+
+      return () => clearTimeout(messageTimer);
+    }
+  }, [currentIndex]);
+
   return (
     <div className="flex flex-col h-screen max-w-md mx-auto bg-[#e5ddd5] font-sans">
       {/* Header */}
@@ -32,7 +86,9 @@ const WhatsAppChat = () => {
         </div>
         <div className="flex-1">
           <h1 className="font-semibold text-base">Orcei</h1>
-          <p className="text-xs text-green-200">online</p>
+          <p className="text-xs text-green-200">
+            {isTyping ? "digitando..." : "online"}
+          </p>
         </div>
         <button className="p-2">
           <Phone className="w-5 h-5" />
@@ -41,6 +97,7 @@ const WhatsAppChat = () => {
 
       {/* Chat Background */}
       <div 
+        ref={chatRef}
         className="flex-1 overflow-y-auto px-3 py-2 space-y-1"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9d6c3' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -63,10 +120,11 @@ const WhatsAppChat = () => {
         </div>
 
         {/* Messages */}
-        {messages.map((message) => (
+        {visibleMessages.map((message) => (
           <div
             key={message.id}
-            className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
+            className={`flex ${message.isUser ? "justify-end" : "justify-start"} animate-scale-in`}
+            style={{ animationDuration: "0.2s" }}
           >
             <div
               className={`relative max-w-[80%] px-3 py-2 rounded-lg shadow-sm ${
@@ -87,6 +145,9 @@ const WhatsAppChat = () => {
             </div>
           </div>
         ))}
+
+        {/* Typing Indicator */}
+        {isTyping && <TypingIndicator />}
       </div>
 
       {/* Input Area */}
