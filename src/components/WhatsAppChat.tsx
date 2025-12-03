@@ -44,7 +44,14 @@ const WhatsAppChat = () => {
   }, [visibleMessages, isTyping]);
 
   useEffect(() => {
-    if (currentIndex >= allMessages.length) return;
+    // Loop: reset when all messages are shown
+    if (currentIndex >= allMessages.length) {
+      const resetTimer = setTimeout(() => {
+        setVisibleMessages([]);
+        setCurrentIndex(0);
+      }, 3000); // Pause before restarting
+      return () => clearTimeout(resetTimer);
+    }
 
     const currentMessage = allMessages[currentIndex];
     const isAIMessage = !currentMessage.isUser;
@@ -52,7 +59,7 @@ const WhatsAppChat = () => {
     // Show typing indicator for AI messages
     if (isAIMessage) {
       setIsTyping(true);
-      const typingDuration = Math.min(2000, 800 + currentMessage.text.length * 8);
+      const typingDuration = Math.min(3500, 1500 + currentMessage.text.length * 12);
       
       const typingTimer = setTimeout(() => {
         setIsTyping(false);
@@ -62,11 +69,11 @@ const WhatsAppChat = () => {
 
       return () => clearTimeout(typingTimer);
     } else {
-      // User messages appear with a small delay
+      // User messages appear with a slower delay
       const messageTimer = setTimeout(() => {
         setVisibleMessages(prev => [...prev, currentMessage]);
         setCurrentIndex(prev => prev + 1);
-      }, 600);
+      }, 1200);
 
       return () => clearTimeout(messageTimer);
     }
