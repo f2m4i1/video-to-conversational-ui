@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { CheckCheck, Phone, ChevronLeft, Plus, Camera, Mic, Smile, ExternalLink } from "lucide-react";
+import botafogoShirt from "@/assets/botafogo-away-25-26.webp";
 
 interface LinkPreview {
   image: string;
@@ -37,7 +38,7 @@ const vestuarioMessages: Message[] = [
     isUser: true, 
     isRead: true,
     linkPreview: {
-      image: "https://images.unsplash.com/photo-1580087256394-dc596e1c8f4f?w=300&h=300&fit=crop",
+      image: botafogoShirt,
       title: "Camisa Botafogo Reebok Away 25/26 - Botafogo Store | Aura90",
       domain: "store.botafogo.com.br",
       url: "https://store.botafogo.com.br/camisa-botafogo-reebok-away-2526/p?skuId=343307"
