@@ -22,11 +22,9 @@ type ConversationType = "construcao" | "vestuario" | "autopecas";
 
 const construcaoMessages: Message[] = [
   { id: 1, text: "Oi tudo bem?", time: "14:25", isUser: true, isRead: true },
-  { id: 2, text: "Queria fazer um orçamento", time: "14:25", isUser: true, isRead: true },
-  { id: 3, text: "Olá! Para seguirmos com seu orçamento, por favor me informe a lista dos produtos ou materiais que deseja cotar (inclua quantidade e descrição de cada item se possível). Assim consigo preparar o orçamento certinho para você.", time: "14:26", isUser: false },
-  { id: 4, text: "Quero o preço do saco de gesso 40 kilos e fundo preparador 18litros suvinil", time: "14:26", isUser: true, isRead: true },
-  { id: 5, text: "Segue o orçamento solicitado:\n\n• 1 saco de Gesso 40 KG (Gesso Pilares): R$ 63,50\n• 1 litro de Fundo Preparador Parede Suvinil GL: R$ 120,10\n\nTotal: R$ 183,60\n\nPor favor, revise os itens e valores. Se estiver tudo certo ou precisar adicionar, remover ou alterar algum item, é só me avisar!", time: "14:27", isUser: false },
-  { id: 6, text: "Perfeito!", time: "14:27", isUser: true, isRead: true },
+  { id: 2, text: "Queria fazer um orçamento de gesso 40 kilos e fundo preparador 18litros suvinil", time: "14:25", isUser: true, isRead: true },
+  { id: 3, text: "Segue o orçamento solicitado:\n\n• 1 saco de Gesso 40 KG (Gesso Pilares): R$ 63,50\n• 1 litro de Fundo Preparador Parede Suvinil GL: R$ 120,10\n\nTotal: R$ 183,60\n\nPor favor, revise os itens e valores. Se estiver tudo certo ou precisar adicionar, remover ou alterar algum item, é só me avisar!", time: "14:26", isUser: false },
+  { id: 4, text: "Perfeito!", time: "14:26", isUser: true, isRead: true },
 ];
 
 const vestuarioMessages: Message[] = [
