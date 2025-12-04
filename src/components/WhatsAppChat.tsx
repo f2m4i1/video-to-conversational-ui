@@ -56,12 +56,9 @@ const autopecasMessages: Message[] = [
   { id: 2, text: "Vocês tem pastilha de freio dianteira pro Civic 2019?", time: "15:10", isUser: true, isRead: true },
   { id: 3, text: "Boa tarde! Temos sim, deixa eu verificar as opções disponíveis pra você.", time: "15:11", isUser: false },
   { id: 4, text: "Encontrei 2 opções:\n\n• Pastilha Freio Dianteira Cobreq (original): R$ 189,90\n• Pastilha Freio Dianteira Fras-le: R$ 149,90\n\nAs duas são de ótima qualidade. A Cobreq é a mesma especificação da original Honda.", time: "15:12", isUser: false },
-  { id: 5, text: "Vou querer a Cobreq mesmo", time: "15:13", isUser: true, isRead: true },
-  { id: 6, text: "Vocês fazem a troca também ou só vendem a peça?", time: "15:13", isUser: true, isRead: true },
-  { id: 7, text: "Fazemos a instalação sim! O serviço de troca das pastilhas dianteiras fica R$ 80,00.\n\nTotal com peça + mão de obra: R$ 269,90\n\nPosso agendar pra você?", time: "15:14", isUser: false },
-  { id: 8, text: "Perfeito, consegue pra amanhã de manhã?", time: "15:15", isUser: true, isRead: true },
-  { id: 9, text: "Consigo sim! Te encaixo às 9h, pode ser?", time: "15:15", isUser: false },
-  { id: 10, text: "Fechado! Obrigado", time: "15:16", isUser: true, isRead: true },
+  { id: 5, text: "Vou querer a Cobreq mesmo!", time: "15:13", isUser: true, isRead: true },
+  { id: 6, text: "Pode entregar aqui na Arnaldo Quintela, 413", time: "15:13", isUser: true, isRead: true },
+  { id: 7, text: "Legal, vou transferir para um atendente para combinar os detalhes da entrega 🙂", time: "15:14", isUser: false },
 ];
 
 const conversationData: Record<ConversationType, { messages: Message[]; label: string }> = {
