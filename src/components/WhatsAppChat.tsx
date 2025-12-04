@@ -43,7 +43,7 @@ const vestuarioMessages: Message[] = [
       url: "https://store.botafogo.com.br/camisa-botafogo-reebok-away-2526/p?skuId=343307"
     }
   },
-  { id: 3, text: "Vocês tem aí essa no tamanho \"G\"?", time: "13:57", isUser: true, isRead: true },
+  { id: 3, text: "Vocês tem essa ai na loja do Nova América, tamanho G?", time: "13:57", isUser: true, isRead: true },
   { id: 4, text: "Boa tarde, tudo bem? Temos aqui no estoque sim!", time: "13:59", isUser: false },
   { id: 5, text: "R$ 399,00 à vista ou 5x R$ 79,00", time: "13:59", isUser: false },
   { id: 6, text: "Perfeito!", time: "14:01", isUser: true, isRead: true },
